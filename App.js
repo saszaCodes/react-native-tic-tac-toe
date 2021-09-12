@@ -6,8 +6,8 @@ export default function App() {
   const [gameState, setGameState] = useState(new Array(9).fill(null));
   const [curPlayer, setCurPlayer] = useState('X');
   useEffect(() => {
-    checkWinner('X') && console.log('Congrats! X wins!');
-    checkWinner('O') && console.log('Congrats! O wins!')
+    if (checkWinner('X')) { console.log('Congrats! X wins!'); resetGame(); }
+    if (checkWinner('O')) { console.log('Congrats! O wins!'); resetGame(); }
   }, [gameState]);
   function checkWinner(sign) {
     if (
@@ -16,8 +16,11 @@ export default function App() {
       gameState[6] === sign && gameState[7] === sign && gameState[8] === sign ||
       gameState[0] === sign && gameState[4] === sign && gameState[8] === sign ||
       gameState[2] === sign && gameState[4] === sign && gameState[6] === sign
-    ) { return true }
-    else { return false }
+    ) { return true; }
+    else { return false; }
+  }
+  function resetGame() {
+    setGameState(new Array(9).fill(null));
   }
   function addSign(index) {
     if (gameState[index] !== null) {
