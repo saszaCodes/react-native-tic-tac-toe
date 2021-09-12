@@ -2,7 +2,7 @@ import React from 'react';
 // eslint-disable-next-line object-curly-newline
 import { StyleSheet, Text, View, Pressable } from 'react-native';
 
-export default function GameBoard(gameState, pressHandler) {
+export default function GameBoard({ gameState, pressHandler }) {
   function generateFields(arr) {
     return arr.map((el, index) => {
       let sign;
@@ -11,7 +11,7 @@ export default function GameBoard(gameState, pressHandler) {
       else if (el === 'O') { sign = 'O'; }
       else { throw new Error('Invalid array passed to generateFields() function') }
       return (
-        <Pressable key={index} style={styles.gameField} onPress={pressHandler}>
+        <Pressable key={index} style={styles.gameField} onPress={() => pressHandler(index)}>
           {/* ZASTĄP TO PRAWDZIWYM KÓŁKIEM I KRZYŻYKIEM */}
           <Text style={{textAlign: 'center'}}>{sign}</Text>
         </Pressable>
@@ -21,7 +21,7 @@ export default function GameBoard(gameState, pressHandler) {
   return (
     <View style={styles.gameBoard}>
       {/* ZAMIAST TEGO PRZEKAŻ ARRAY OD APP.JS */}
-      {generateFields(new Array(9).fill(null))}
+      {generateFields(gameState)}
     </View>
   );
 }
