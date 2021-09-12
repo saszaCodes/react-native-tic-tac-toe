@@ -19,6 +19,9 @@
     "linebreak-style": 0,
     "no-use-before-define": 0,
     "arrow-body-style" : "warn",
-    "import/no-unresolved": 0
+    "import/no-unresolved": 0,
+    "brace-style": {
+      "allowSingleLine": true
+    }
   }
 }
