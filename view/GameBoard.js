@@ -19,20 +19,18 @@ export default function GameBoard({ gameState, pressHandler }) {
       if (index === 6 || index === 7 || index === 8) { removedBorders.borderBottomWidth = 0; }
       if (index === 0 || index === 3 || index === 6) { removedBorders.borderLeftWidth = 0; }
       if (index === 2 || index === 5 || index === 8) { removedBorders.borderRightWidth = 0; }
+      // return given field
       return (
         <Pressable key={index} style={[styles.gameField, removedBorders]} onPress={() => pressHandler(index)}>
-          {/* ZASTĄP TO PRAWDZIWYM KÓŁKIEM I KRZYŻYKIEM */}
           <View style={styles.gameSignContainer}>
             {sign}
           </View>
-          {/* <Text style={{textAlign: 'center', color: 'white'}}>{sign}</Text> */}
         </Pressable>
       );
     });
   }
   return (
     <View style={styles.gameBoard}>
-      {/* ZAMIAST TEGO PRZEKAŻ ARRAY OD APP.JS */}
       {generateFields(gameState)}
     </View>
   );
