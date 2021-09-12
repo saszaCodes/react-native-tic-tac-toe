@@ -8,6 +8,7 @@ export default function App() {
   useEffect(() => {
     if (checkWinner('X')) { console.log('Congrats! X wins!'); resetGame(); }
     if (checkWinner('O')) { console.log('Congrats! O wins!'); resetGame(); }
+    if (!gameState.includes(null)) { console.log('That\'s a tie!'); resetGame(); }
   }, [gameState]);
   function checkWinner(sign) {
     if (
