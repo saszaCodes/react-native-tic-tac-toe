@@ -15,6 +15,9 @@ export default function App() {
       gameState[0] === sign && gameState[1] === sign && gameState[2] === sign ||
       gameState[3] === sign && gameState[4] === sign && gameState[5] === sign ||
       gameState[6] === sign && gameState[7] === sign && gameState[8] === sign ||
+      gameState[0] === sign && gameState[3] === sign && gameState[6] === sign ||
+      gameState[1] === sign && gameState[4] === sign && gameState[7] === sign ||
+      gameState[2] === sign && gameState[5] === sign && gameState[8] === sign ||
       gameState[0] === sign && gameState[4] === sign && gameState[8] === sign ||
       gameState[2] === sign && gameState[4] === sign && gameState[6] === sign
     ) { return true; }
@@ -34,15 +37,18 @@ export default function App() {
     curPlayer === 'X' ? setCurPlayer('O') : setCurPlayer('X');
   }
   return (
-    <GameBoard gameState={gameState} pressHandler={addSign}/>
+    <View style={styles.container}>
+      <GameBoard gameState={gameState} pressHandler={addSign}/>
+    </View>
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white'
+  },
+});
