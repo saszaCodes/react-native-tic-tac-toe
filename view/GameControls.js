@@ -16,6 +16,8 @@ export default function GameControls({ resetScoreHandler, resetGameHandler }) {
 
 const styles = StyleSheet.create({
   controlsContainer: {
+    marginVertical: 30,
+    alignSelf: 'center',
     width: '80%',
     flexDirection: 'row',
     justifyContent: 'space-around',

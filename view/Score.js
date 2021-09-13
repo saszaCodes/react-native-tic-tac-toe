@@ -19,6 +19,8 @@ export default function Score({ player1Score = 0, player2Score = 0, player1Name 
 
 const styles = StyleSheet.create({
   scoresContainer: {
+    marginVertical: 30,
+    alignSelf: 'center',
     width: '60%',
     flexDirection: 'row',
     justifyContent: 'center',

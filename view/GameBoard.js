@@ -38,6 +38,7 @@ export default function GameBoard({ gameState, pressHandler }) {
 
 const styles = StyleSheet.create({
   gameBoard: {
+    marginVertical: 30,
     alignSelf: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',

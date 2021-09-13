@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import GameBoard from './view/GameBoard';
 import Score from './view/Score';
 import GameControls from './view/GameControls';
@@ -129,7 +129,7 @@ export default function App() {
     setPlayersData(newPlayersData);
   }
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       { winnerModalControls.show && 
         <WinnerModal 
           winner={winnerModalControls.winner}
@@ -143,13 +143,13 @@ export default function App() {
         player2Name={playersData.player2.name}
         changeHandler={changeName}
       />
-      <Text style={{color: 'white'}}>{`${playersData[curPlayer].name}'s turn`}</Text>
+      <Text style={{color: 'white', textAlign: 'center'}}>{`${playersData[curPlayer].name}'s turn`}</Text>
       <GameBoard gameState={gameState} pressHandler={addSign}/>
       <GameControls 
         resetGameHandler={() => setNewGame(null, curPlayer)}
         resetScoreHandler={resetScore}
       />
-    </View>
+    </ScrollView>
   );
 }
 
@@ -157,8 +157,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    color: 'white'
   },
 });
