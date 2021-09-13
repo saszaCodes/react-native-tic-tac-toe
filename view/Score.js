@@ -1,9 +1,11 @@
 import React, { useRef } from 'react';
 import { StyleSheet, Text, TextInput, View, Keyboard } from 'react-native';
 
-export default function Score({ player1Score = 0, player2Score = 0, player1Name = 'Player 1', player2Name = 'Player 2', playersData, changeHandler, curPlayer }) {
+export default function Score({ playersData, changeHandler, curPlayer }) {
+  // create references allowing for access to input components
   const inputRef1 = useRef();
   const inputRef2 = useRef();
+  // when keyboard is closed, unset focus from input components
   Keyboard.addListener('keyboardDidHide', () => {
     inputRef1.current.blur();
     inputRef2.current.blur();
@@ -14,7 +16,7 @@ export default function Score({ player1Score = 0, player2Score = 0, player1Name 
     return (
       <View style={[styles.playerScoreContainer, curPlayer === player && curPlayerHighlight]}>
         <TextInput
-          ref={inputRef1}
+          ref={player === 'player1' ? inputRef1 : inputRef2}
           style={styles.playerName}
           value={playersData[player].name}
           onChangeText={(text) => changeHandler(text, player)}
@@ -23,7 +25,8 @@ export default function Score({ player1Score = 0, player2Score = 0, player1Name 
         <Text style={styles.playerScore}>{playersData[player].score}</Text>
       </View>
     )
-  }  return (
+  }
+  return (
     <View style={styles.scoresContainer}>
       {generatePlayerScore('player1')}
       <Text style={styles.versusText}>vs.</Text>
