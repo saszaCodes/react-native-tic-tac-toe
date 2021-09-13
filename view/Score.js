@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
-import { StyleSheet, Text, TextInput, View, Keyboard } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Keyboard, Image } from 'react-native';
+import oBlack from '../assets/game-board/o-icon-black.png';
+import xBlack from '../assets/game-board/x-icon-black.png';
 
 export default function Score({ playersData, changeHandler, curPlayer }) {
   // create references allowing for access to input components
@@ -21,7 +23,12 @@ export default function Score({ playersData, changeHandler, curPlayer }) {
           value={playersData[player].name}
           onChangeText={(text) => changeHandler(text, player)}
         />
-        <Text style={styles.playerSign}>{playersData[player].sign}</Text>
+        <View style={styles.playerSignContainer}>
+          <Image
+            style={styles.playerSign}
+            source={playersData[player].sign === 'X' ? xBlack : oBlack}
+          />
+        </View>
         <Text style={styles.playerScore}>{playersData[player].score}</Text>
       </View>
     )
@@ -54,17 +61,23 @@ const styles = StyleSheet.create({
   },
   playerName: {
     fontSize: 18,
+    width: '100%',
     color: 'black',
     backgroundColor: 'white',
     paddingHorizontal: 15,
     paddingTop: 5,
+    textAlign: 'center',
+  },
+  playerSignContainer: {
+    width: '100%',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    paddingVertical: 5,
   },
   playerSign: {
-    color: 'black',
-    backgroundColor: 'white',
-    width: '100%',
-    textAlign: 'center',
-    paddingBottom: 5,
+    resizeMode: 'contain',
+    height: 12,
+    aspectRatio: 1,
   },
   playerScore: {
     fontSize: 24,
