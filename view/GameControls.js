@@ -5,10 +5,10 @@ export default function GameControls({ resetScoreHandler, resetGameHandler }) {
   return (
     <View style={styles.controlsContainer}>
       <Pressable onPress={resetGameHandler} style={[styles.button, styles.resetGameButton]}>
-        <Text style={styles.buttonText}>Reset Current Game</Text>
+        <Text style={styles.resetGameText}>Reset Current Game</Text>
       </Pressable>
       <Pressable onPress={resetScoreHandler} style={[styles.button, styles.resetScoreButton]}>
-        <Text style={styles.buttonText}>Reset Score</Text>
+        <Text style={styles.resetScoreText}>Reset Score</Text>
       </Pressable>
     </View>
   );
@@ -28,12 +28,15 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   resetGameButton: {
-    backgroundColor: '#d34b00',
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
   },
   resetScoreButton: {
-    backgroundColor: '#c10000',
+    backgroundColor: 'white',
   },
-  buttonText: {
-    color: 'white'
-  }
+  resetGameText: {
+    color: 'white',
+  },
+  resetScoreText: {
+    color: 'black',
+  },
 });
