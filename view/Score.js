@@ -1,35 +1,33 @@
 import React, { useRef } from 'react';
 import { StyleSheet, Text, TextInput, View, Keyboard } from 'react-native';
 
-export default function Score({ player1Score = 0, player2Score = 0, player1Name = 'Player 1', player2Name = 'Player 2', changeHandler }) {
+export default function Score({ player1Score = 0, player2Score = 0, player1Name = 'Player 1', player2Name = 'Player 2', playersData, changeHandler, curPlayer }) {
   const inputRef1 = useRef();
   const inputRef2 = useRef();
   Keyboard.addListener('keyboardDidHide', () => {
     inputRef1.current.blur();
     inputRef2.current.blur();
-    console.log('keyboard hid')
-  })
-  return (
-    <View style={styles.scoresContainer}>
-      <View style={styles.playerScoreContainer}>
+  });
+  function generatePlayerScore(player) {
+    // add this style to current player's score
+    const curPlayerHighlight = {backgroundColor: 'rgba(255, 255, 255, 0.3)'};
+    return (
+      <View style={[styles.playerScoreContainer, curPlayer === player && curPlayerHighlight]}>
         <TextInput
           ref={inputRef1}
           style={styles.playerName}
-          value={player1Name}
-          onChangeText={(text) => changeHandler(text, 'player1')}
+          value={playersData[player].name}
+          onChangeText={(text) => changeHandler(text, player)}
         />
-        <Text style={styles.playerScore}>{player1Score}</Text>
+        <Text style={styles.playerSign}>{playersData[player].sign}</Text>
+        <Text style={styles.playerScore}>{playersData[player].score}</Text>
       </View>
+    )
+  }  return (
+    <View style={styles.scoresContainer}>
+      {generatePlayerScore('player1')}
       <Text style={styles.versusText}>vs.</Text>
-      <View style={styles.playerScoreContainer}>
-        <TextInput
-          ref={inputRef2}
-          style={styles.playerName}
-          value={player2Name}
-          onChangeText={(text) => changeHandler(text, 'player2')}
-        />
-        <Text style={styles.playerScore}>{player2Score}</Text>
-      </View>
+      {generatePlayerScore('player2')}
     </View>
   );
 }
@@ -56,7 +54,14 @@ const styles = StyleSheet.create({
     color: 'black',
     backgroundColor: 'white',
     paddingHorizontal: 15,
-    paddingVertical: 5,
+    paddingTop: 5,
+  },
+  playerSign: {
+    color: 'black',
+    backgroundColor: 'white',
+    width: '100%',
+    textAlign: 'center',
+    paddingBottom: 5,
   },
   playerScore: {
     fontSize: 24,

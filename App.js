@@ -143,9 +143,10 @@ export default function App() {
           player1Name={playersData.player1.name}
           player2Score={playersData.player2.score}
           player2Name={playersData.player2.name}
+          playersData={playersData}
           changeHandler={changeName}
+          curPlayer={curPlayer}
         />
-        <Text style={{color: 'white', textAlign: 'center'}}>{`${playersData[curPlayer].name}'s turn`}</Text>
         <GameBoard gameState={gameState} pressHandler={addSign}/>
         <GameControls 
           resetGameHandler={() => setNewGame(null, curPlayer)}
