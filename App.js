@@ -10,11 +10,13 @@ export default function App() {
   const [curPlayer, setCurPlayer] = useState('player1');
   const [playersData, setPlayersData] = useState({
     player1: {
+      name: 'Player 1',
       sign: 'X',
       score: 0,
       startedThisGame: true,
     },
     player2: {
+      name: 'Player 2',
       sign: 'O',
       score: 0,
       startedThisGame: false,
@@ -30,14 +32,14 @@ export default function App() {
       setNewGame('player1', 'player2');
       setWinnerModalControls({
         show: true,
-        winner: 'player1'
+        winner: playersData.player1.name
       });
     }
     else if (checkWinner(playersData.player2.sign)) {
       setNewGame('player2', 'player1');
       setWinnerModalControls({
         show: true,
-        winner: 'player2'
+        winner: playersData.player2.name
       });
     }
     // if not, check if it's a tie
@@ -74,11 +76,13 @@ export default function App() {
     // prepare players data at the beggining a of new game
     const newPlayersData = {
       player1: {
+        name: playersData.player1.name,
         sign: playersData.player1.sign,
         score: winningPlayer === 'player1' ? playersData.player1.score + 1 : playersData.player1.score,
         startedThisGame: startingPlayer === 'player1',
       },
       player2: {
+        name: playersData.player2.name,
         sign: playersData.player2.sign,
         score: winningPlayer === 'player2' ? playersData.player2.score + 1 : playersData.player2.score,
         startedThisGame: startingPlayer === 'player2',
@@ -93,11 +97,13 @@ export default function App() {
     // prepare players data, where each has 0 points, don't change anything else
     const newPlayersData = {
       player1: {
+        name: playersData.player1.name,
         sign: playersData.player1.sign,
         score: 0,
         startedThisGame: playersData.player1.startedThisGame,
       },
       player2: {
+        name: playersData.player2.name,
         sign: playersData.player2.sign,
         score: 0,
         startedThisGame: playersData.player2.startedThisGame,
@@ -131,7 +137,12 @@ export default function App() {
         resetScoreHandler={resetScore}
       />
       <GameBoard gameState={gameState} pressHandler={addSign}/>
-      <Score player1Score={playersData.player1.score} player2Score={playersData.player2.score}/>
+      <Score
+        player1Score={playersData.player1.score}
+        player1Name={playersData.player1.name}
+        player2Score={playersData.player2.score}
+        player2Name={playersData.player2.name}
+      />
     </View>
   );
 }
