@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, StatusBar } from 'react-native';
 import GameBoard from './view/GameBoard';
 import Score from './view/Score';
 import GameControls from './view/GameControls';
@@ -129,27 +129,30 @@ export default function App() {
     setPlayersData(newPlayersData);
   }
   return (
-    <ScrollView style={styles.container}>
-      { winnerModalControls.show && 
-        <WinnerModal 
-          winner={winnerModalControls.winner}
-          pressHandler={() => setWinnerModalControls({ show: false, winner: null })}
+    <>
+      <StatusBar />
+      <ScrollView style={styles.container}>
+        { winnerModalControls.show && 
+          <WinnerModal 
+            winner={winnerModalControls.winner}
+            pressHandler={() => setWinnerModalControls({ show: false, winner: null })}
+          />
+        }
+        <Score
+          player1Score={playersData.player1.score}
+          player1Name={playersData.player1.name}
+          player2Score={playersData.player2.score}
+          player2Name={playersData.player2.name}
+          changeHandler={changeName}
         />
-      }
-      <Score
-        player1Score={playersData.player1.score}
-        player1Name={playersData.player1.name}
-        player2Score={playersData.player2.score}
-        player2Name={playersData.player2.name}
-        changeHandler={changeName}
-      />
-      <Text style={{color: 'white', textAlign: 'center'}}>{`${playersData[curPlayer].name}'s turn`}</Text>
-      <GameBoard gameState={gameState} pressHandler={addSign}/>
-      <GameControls 
-        resetGameHandler={() => setNewGame(null, curPlayer)}
-        resetScoreHandler={resetScore}
-      />
-    </ScrollView>
+        <Text style={{color: 'white', textAlign: 'center'}}>{`${playersData[curPlayer].name}'s turn`}</Text>
+        <GameBoard gameState={gameState} pressHandler={addSign}/>
+        <GameControls 
+          resetGameHandler={() => setNewGame(null, curPlayer)}
+          resetScoreHandler={resetScore}
+        />
+      </ScrollView>
+    </>
   );
 }
 
