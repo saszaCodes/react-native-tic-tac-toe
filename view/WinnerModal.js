@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
   },
   winnerText: {
     fontSize: 22,
-    textDecorationLine: 'underline',
   },
   controlsContainer: {
     width: '80%',
