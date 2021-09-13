@@ -1,16 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 
-export default function Score({ player1Score = 0, player2Score = 0, player1Name = 'Player 1', player2Name = 'Player 2' }) {
+export default function Score({ player1Score = 0, player2Score = 0, player1Name = 'Player 1', player2Name = 'Player 2', changeHandler }) {
   return (
     <View style={styles.scoresContainer}>
       <View style={styles.playerScoreContainer}>
-        <Text style={styles.playerName}>{player1Name}</Text>
+        <TextInput style={styles.playerName} value={player1Name} onChangeText={(text) => changeHandler(text, 'player1')}/>
         <Text style={styles.playerScore}>{player1Score}</Text>
       </View>
       <Text style={styles.versusText}>vs.</Text>
       <View style={styles.playerScoreContainer}>
-        <Text style={styles.playerName}>{player2Name}</Text>
+        <TextInput style={styles.playerName} value={player2Name} onChangeText={(text) => changeHandler(text, 'player2')}/>
         <Text style={styles.playerScore}>{player2Score}</Text>
       </View>
     </View>

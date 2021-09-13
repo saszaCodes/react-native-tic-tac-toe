@@ -123,6 +123,11 @@ export default function App() {
     newGameState[index] = curSign;
     setGameState(newGameState);
   }
+  function changeName(newName, player) {
+    const newPlayersData = {...playersData};
+    newPlayersData[player].name = newName;
+    setPlayersData(newPlayersData);
+  }
   return (
     <View style={styles.container}>
       { winnerModalControls.show && 
@@ -131,17 +136,18 @@ export default function App() {
           pressHandler={() => setWinnerModalControls({ show: false, winner: null })}
         />
       }
-      <Text style={{color: 'white'}}>{curPlayer === 'player1' ? 'Player 1\'s move!': 'Player 2\'s move!'}</Text>
-      <GameControls 
-        resetGameHandler={() => setNewGame(null, curPlayer)}
-        resetScoreHandler={resetScore}
-      />
-      <GameBoard gameState={gameState} pressHandler={addSign}/>
       <Score
         player1Score={playersData.player1.score}
         player1Name={playersData.player1.name}
         player2Score={playersData.player2.score}
         player2Name={playersData.player2.name}
+        changeHandler={changeName}
+      />
+      <Text style={{color: 'white'}}>{`${playersData[curPlayer].name}'s turn`}</Text>
+      <GameBoard gameState={gameState} pressHandler={addSign}/>
+      <GameControls 
+        resetGameHandler={() => setNewGame(null, curPlayer)}
+        resetScoreHandler={resetScore}
       />
     </View>
   );
