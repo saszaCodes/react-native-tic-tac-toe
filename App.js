@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import GameBoard from './view/GameBoard';
 import Score from './view/Score';
 import GameControls from './view/GameControls';
+import WinnerModal from './view/WinnerModal';
 
 export default function App() {
   const [gameState, setGameState] = useState(new Array(9).fill(null));
@@ -19,21 +20,34 @@ export default function App() {
       startedThisGame: false,
     }
   })
+  const [winnerModalControls, setWinnerModalControls] = useState({
+    show: false,
+    winner: null,
+  });
   useEffect(() => {
     // check if either player won
     if (checkWinner(playersData.player1.sign)) {
-      console.log('Congrats! Player 1 wins!');
       setNewGame('player1', 'player2');
+      setWinnerModalControls({
+        show: true,
+        winner: 'player1'
+      });
     }
     else if (checkWinner(playersData.player2.sign)) {
-      console.log('Congrats! Player 2 wins!');
       setNewGame('player2', 'player1');
+      setWinnerModalControls({
+        show: true,
+        winner: 'player2'
+      });
     }
     // if not, check if it's a tie
     else if (!gameState.includes(null)) {
-      console.log('That\'s a tie!');
       const startingPlayer = playersData.player1.startedThisGame ? 'player2' : 'player1';
       setNewGame(null, startingPlayer);
+      setWinnerModalControls({
+        show: true,
+        winner: null
+      });
     }
     // if not, and it's not a start of new game, change current player
     else if (gameState.join('').length > 0) {
@@ -96,7 +110,6 @@ export default function App() {
     // check if move is legal
     const curSign = playersData[curPlayer].sign;
     if (gameState[index] !== null) {
-      console.log(`You cannot place ${curSign} here!`);
       return;
     }
     // if it's legal, update gameState array
@@ -106,6 +119,12 @@ export default function App() {
   }
   return (
     <View style={styles.container}>
+      { winnerModalControls.show && 
+        <WinnerModal 
+          winner={winnerModalControls.winner}
+          pressHandler={() => setWinnerModalControls({ show: false, winner: null })}
+        />
+      }
       <Text style={{color: 'white'}}>{curPlayer === 'player1' ? 'Player 1\'s move!': 'Player 2\'s move!'}</Text>
       <GameControls 
         resetGameHandler={() => setNewGame(null, curPlayer)}
