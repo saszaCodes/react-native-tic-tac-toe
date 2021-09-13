@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import GameBoard from './view/GameBoard';
 import Score from './view/Score';
+import GameControls from './view/GameControls';
 
 export default function App() {
   const [gameState, setGameState] = useState(new Array(9).fill(null));
@@ -74,6 +75,23 @@ export default function App() {
     setCurPlayer(startingPlayer);
     setGameState(new Array(9).fill(null));
   }
+  function resetScore() {
+    // prepare players data, where each has 0 points, don't change anything else
+    const newPlayersData = {
+      player1: {
+        sign: playersData.player1.sign,
+        score: 0,
+        startedThisGame: playersData.player1.startedThisGame,
+      },
+      player2: {
+        sign: playersData.player2.sign,
+        score: 0,
+        startedThisGame: playersData.player2.startedThisGame,
+      }
+    };
+    // set new players data
+    setPlayersData(newPlayersData);
+  }
   function addSign(index) {
     // check if move is legal
     const curSign = playersData[curPlayer].sign;
@@ -89,6 +107,10 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text style={{color: 'white'}}>{curPlayer === 'player1' ? 'Player 1\'s move!': 'Player 2\'s move!'}</Text>
+      <GameControls 
+        resetGameHandler={() => setNewGame(null, curPlayer)}
+        resetScoreHandler={resetScore}
+      />
       <GameBoard gameState={gameState} pressHandler={addSign}/>
       <Score player1Score={playersData.player1.score} player2Score={playersData.player2.score}/>
     </View>
